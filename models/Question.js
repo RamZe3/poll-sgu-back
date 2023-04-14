@@ -1,10 +1,9 @@
 class Question{
-    constructor(id, number, question_text, answers, answer) {
-        this.id = id
-        this.number = number
+    constructor(question_id, question_number, question_text, question_right_answer_number) {
+        this.question_id = question_id
+        this.question_number = question_number
         this.question_text = question_text
-        this.answers = answers
-        this.answer = answer
+        this.question_right_answer_number = question_right_answer_number
     }
 }
 
