@@ -1,19 +1,13 @@
 class Result{
-    constructor(id, creator_id, by_invitation, title, description, type, questions, date_of_creation, ballings, invitation_key, test_id, date_of_passage, user_id, comment) {
-        this.id = id
-        this.creator_id = creator_id
-        this.by_invitation = by_invitation
-        this.title = title
-        this.description = description
-        this.type = type
-        this.questions = questions
-        this.date_of_creation = date_of_creation
-        this.ballings = ballings
-        this.invitation_key = invitation_key
-        this.test_id = test_id
-        this.date_of_passage = date_of_passage
+    constructor(result_id, user_id, test_id, test_creator_id, result_by_invitation, test_type_id, date_of_passage, result_comment) {
+        this.result_id = result_id
         this.user_id = user_id
-        this.comment = comment
+        this.test_id = test_id
+        this.test_creator_id = test_creator_id
+        this.result_by_invitation = result_by_invitation
+        this.test_type_id = test_type_id
+        this.date_of_passage = date_of_passage
+        this.result_comment = result_comment
     }
 }
 

@@ -1,15 +1,14 @@
 class Test {
-    constructor(id, creator_id, by_invitation, title, description, type, questions, date_of_creation, ballings, invitation_key) {
-        this.id = id
-        this.creator_id = creator_id
-        this.by_invitation = by_invitation
-        this.title = title
-        this.description = description
-        this.type = type
-        this.questions = questions
-        this.date_of_creation = date_of_creation
-        this.ballings = ballings
-        this.invitation_key = invitation_key
+    constructor(test_id, test_creator_id, test_title, test_description, test_type_id, test_by_invitation, test_invitation_key, test_date_of_creation)
+    {
+        this.test_id = test_id
+        this.test_creator_id = test_creator_id
+        this.test_title = test_title
+        this.test_description = test_description
+        this.test_type_id = test_type_id
+        this.test_by_invitation = test_by_invitation
+        this.test_invitation_key = test_invitation_key
+        this.test_date_of_creation = test_date_of_creation
     }
 }
 
