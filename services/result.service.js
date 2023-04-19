@@ -2,8 +2,8 @@ const db = require('../db')
 
 class ResultService{
     async createResult(result){
-        const newResult = await db.query('INSERT INTO Results (result_id, user_id, test_id, test_creator_id, result_by_invitation, test_type_id, date_of_passage, result_comment) values ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
-            [result.result_id, result.user_id, result.test_id, result.test_creator_id, result.result_by_invitation, result.test_type_id, result.date_of_passage, result.result_comment])
+        const newResult = await db.query('INSERT INTO Results (user_id, test_id, test_creator_id, result_by_invitation, test_type_id, date_of_passage, result_comment) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+            [result.user_id, result.test_id, result.test_creator_id, result.result_by_invitation, result.test_type_id, result.date_of_passage, result.result_comment])
         return newResult.rows[0]
     }
 
