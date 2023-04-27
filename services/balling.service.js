@@ -2,8 +2,8 @@ const db = require('../db')
 
 class TestService{
     async createBalling(balling){
-        const newBalling = await db.query('INSERT INTO Ballings (balling_id, test_id, balling_number, balling_min_value, balling_max_value, balling_auto_result) values ($1, $2, $3, $4, $5) RETURNING *',
-            [balling.balling_id, balling.test_id, balling.balling_number, balling.balling_min_value, balling.balling_max_value, balling.balling_auto_result])
+        const newBalling = await db.query('INSERT INTO Ballings (test_id, balling_number, balling_min_value, balling_max_value, balling_auto_result) values ($1, $2, $3, $4) RETURNING *',
+            [balling.test_id, balling.balling_number, balling.balling_min_value, balling.balling_max_value, balling.balling_auto_result])
         return newBalling.rows[0]
     }
 

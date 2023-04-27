@@ -2,8 +2,8 @@ const db = require('../db')
 
 class QuestionService{
     async createQuestion(question){
-        const newQuestion = await db.query('INSERT INTO Questions (question_id, question_number, question_text, question_right_answer_number) values ($1, $2, $3, $4) RETURNING *',
-            [question.question_id, question.question_number, question.question_text, question_right_answer_number])
+        const newQuestion = await db.query('INSERT INTO Questions (question_number, question_text, question_right_answer_number) values ($1, $2, $3) RETURNING *',
+            [question.question_number, question.question_text, question_right_answer_number])
         return newQuestion.rows[0]
     }
 
@@ -18,6 +18,16 @@ class QuestionService{
         }
         else{
             const question = await db.query('SELECT question_text FROM Questions WHERE question_id = $1', [id])
+            return question.rows[0]
+        }
+    }
+
+    async getQuestionByTestId(id){
+        if (id === "null" || id === ""){
+            return ''
+        }
+        else{
+            const question = await db.query('SELECT q.question_id, q.question_text, q.question_number, q.question_right_answer_number, qt.QuestionsTests FROM QuestionTests AS qt WHERE test_id = $1 JOIN Question AS q ON q.question_id = qt.question_id', [id])
             return question.rows[0]
         }
     }
