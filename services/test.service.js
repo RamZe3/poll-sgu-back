@@ -14,9 +14,8 @@ class TestService{
         }
         else{
             let test = await db.query('SELECT * FROM Tests WHERE test_id= $1', [id])
-            test.rows[0].test_questions = []
             const questions = await db.query('SELECT * FROM Questions WHERE test_id= $1', [id])
-            test.rows[0].test_questions.push(questions.rows)
+            test.rows[0].test_questions = questions.rows
             return test.rows[0]
         }
     }
@@ -24,9 +23,9 @@ class TestService{
     async getTests(){
         let tests = await db.query('SELECT * FROM Tests')
         for (let test of tests.rows) {
-            test.test_questions = []
+            
             const questions = await db.query('SELECT * FROM Questions WHERE test_id=$1', [test.test_id])
-            test.test_questions.push(questions.rows)
+            test.test_questions = questions.rows
         }
 
         return tests.rows
@@ -41,7 +40,7 @@ class TestService{
             for (let test of tests.rows) {
                 test.test_questions = []
                 const questions = await db.query('SELECT * FROM Questions WHERE test_id=$1', [test.test_id])
-                test.test_questions.push(questions.rows)
+                test.test_questions = questions.rows
             }
             return tests.rows
         }
@@ -53,9 +52,8 @@ class TestService{
         }
         else{
             const test = await db.query('SELECT test_id, test_title, test_description, test_type_id FROM Tests WHERE test_invitation_key= $1', [key])
-            test.rows[0].test_questions = []
             const questions = await db.query('SELECT * FROM Questions WHERE test_id= $1', [rows[0].test_id])
-            test.rows[0].test_questions.push(questions.rows)
+            test.rows[0].test_questions = questions.rows
             return test.rows[0]
         }
     }
