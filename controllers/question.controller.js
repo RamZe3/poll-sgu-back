@@ -5,7 +5,7 @@ class QuestionController{
     async createUser(req, res){
         const {question_id, question_number, question_text, question_right_answer_number} = req.body
         const question = new Question(question_id, question_number, question_text, question_right_answer_number)
-        const newQuestion = await QuestionService.createUser(question)
+        const newQuestion = await QuestionService.createQuestion(question)
         res.json(newQuestion)
     }
 

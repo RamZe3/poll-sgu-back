@@ -3,8 +3,10 @@ const UserService = require('../services/user.service')
 const User = require("../models/User");
 class UserController{
     async createUser(req, res){
-        const {login, email, password} = req.body
-        const user = new User(login, email, password)
+        const {user_email, user_login, user_password, user_roles_array, user_tests_by_invite_array} = req.body
+        const user = new User(user_email, user_login, user_password, user_roles_array, user_tests_by_invite_array)
+        //console.log(res.body)
+        //res.json(user)
         const newPerson = await UserService.createUser(user)
         res.json(newPerson)
     }

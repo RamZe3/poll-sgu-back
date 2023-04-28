@@ -1,5 +1,5 @@
 class User{
-    constructor(user_id, user_email, user_login, user_password, user_roles_array, user_tests_by_invite_array) {
+    constructor(user_email, user_login, user_password, user_roles_array, user_tests_by_invite_array, user_id) {
         this.user_id = user_id
         this.user_email = user_email
         this.user_login = user_login

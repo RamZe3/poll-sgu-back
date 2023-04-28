@@ -1,6 +1,6 @@
 const express = require('express')
 const userRouter = require('./routes/user.routes')
-const templatesRouter = require('./routes/template.routes')
+//const templatesRouter = require('./routes/template.routes')
 
 //const PORT = process.env.PORT || 8000
 const PORT = process.env.PORT || 8080
@@ -15,11 +15,11 @@ app.use(cors({
     origin: '*'
 }));
 app.use(express.static('public'));
-app.use('/plot', express.static('plot'));
+//app.use('/plot', express.static('plot'));
 
 app.use(express.json())
 app.use('/api', userRouter)
-app.use('/api', templatesRouter)
+//app.use('/api', templatesRouter)
 
 //app.listen(3000, '192.168.68.112:8080');
 app.listen(PORT, () => console.log('server started on port ' + PORT))

@@ -4,7 +4,7 @@ const pool = new Pool({
     password: 'Qwerty100',
     host: 'localhost',
     port: '5432',
-    database: 'gnuplotdb'
+    database: 'poll-sgu-3'
 })
 
 module.exports = pool

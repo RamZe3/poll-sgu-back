@@ -2,7 +2,7 @@ const db = require('../db')
 
 class UserService{
     async createUser(user){
-        const newUser = await db.query('INSERT INTO users (user_email, user_login, user_password. user_roles_array, user_tests_by_invite_array) values ($1, $2, $3, $5) RETURNING *',
+        const newUser = await db.query('INSERT INTO users(user_email, user_login, user_password, user_roles_array, user_tests_by_invite_array) values ($1, $2, $3, $4, $5) RETURNING *',
             [user.user_email, user.user_login, user.user_password, user.user_roles_array, user.user_tests_by_invite_array])
         return newUser.rows[0]
     }
