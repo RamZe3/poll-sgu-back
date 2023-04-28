@@ -12,6 +12,11 @@ class QuestionService{
         return questions.rows
     }
 
+    async getQuestionsByTestId(id){
+        const questions = await db.query('SELECT * FROM Questions WHERE test_id =$1')
+        return questions.rows
+    }
+
     async getQuestionById(id){
         if (id === "null" || id === ""){
             return ''
