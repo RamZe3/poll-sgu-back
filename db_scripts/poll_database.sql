@@ -10,13 +10,13 @@ CREATE TABLE Users
 	user_email varchar(50) NOT NULL,
 	user_login varchar(50) NOT NULL,
 	user_password varchar(50) NOT NULL,
-	user_roles_array varchar(50)[] NOT NULL,
-	user_tests_by_invite_array int[] NOT NULL
+	user_roles_array varchar(50)[],
+	user_tests_by_invite_array int[]
 );
 
 CREATE TABLE Tests
 (
-	test_id int PRIMARY KEY NOT NULL,
+	test_id SERIAL PRIMARY KEY NOT NULL,
 	test_creator_id int REFERENCES Users(user_id),
 	test_title varchar(50),
 	test_description text,
@@ -59,31 +59,18 @@ CREATE TABLE Ballings
 CREATE TABLE UserAnswers
 (
 	answer_id SERIAL PRIMARY KEY,
+	question_id int,
+	result_id int,
+	test_id int, -- ?
 	answer_number int,
 	answer_text varchar(50),
-	answer_value text 
+	answer_value text
 );
 
 
 
+-- удалено ResultsTests
 
-CREATE TABLE ResultsTests
-(
-	result_id int REFERENCES Results(result_id) NOT NULL,
-	test_id int REFERENCES Tests(test_id) NOT NULL
-);
+-- удалено UsersTests
 
-CREATE TABLE UsersTests
-(
-	user_id int REFERENCES Users(user_id) NOT NULL,
-	test_id int REFERENCES Tests(test_id) NOT NULL
-);
-
--- удалено TestsQuestions
-
-CREATE TABLE AnswersQuestions
-(
-	question_id int REFERENCES Questions(question_id) NOT NULL,
-	answer_id int REFERENCES UserAnswers(answer_id) NOT NULL
-)
-
+-- удалено AnswersQuestions

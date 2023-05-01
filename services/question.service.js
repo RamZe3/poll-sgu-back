@@ -1,9 +1,8 @@
 const db = require('../db')
-
 class QuestionService{
     async createQuestion(question){
-        const newQuestion = await db.query('INSERT INTO Questions (question_number, question_text, question_right_answer_number) values ($1, $2, $3) RETURNING *',
-            [question.question_number, question.question_text, question_right_answer_number])
+        const newQuestion = await db.query('INSERT INTO Questions (question_number, question_text, question_right_answer_number, test_id) values ($1, $2, $3, $4) RETURNING *',
+            [question.question_number, question.question_text, question.question_right_answer_number, question.test_id])
         return newQuestion.rows[0]
     }
 

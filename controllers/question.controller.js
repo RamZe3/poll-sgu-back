@@ -2,7 +2,7 @@ const db = require('../db')
 const QuestionService = require('../services/question.service')
 const Question = require("../models/Question");
 class QuestionController{
-    async createUser(req, res){
+    async createQuestion(req, res){
         const {question_id, question_number, question_text, question_right_answer_number} = req.body
         const question = new Question(question_id, question_number, question_text, question_right_answer_number)
         const newQuestion = await QuestionService.createQuestion(question)

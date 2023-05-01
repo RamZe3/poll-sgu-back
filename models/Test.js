@@ -1,7 +1,6 @@
 class Test {
-    constructor(test_id, test_creator_id, test_title, test_description, test_type_id, test_by_invitation, test_invitation_key, test_date_of_creation)
+    constructor(test_creator_id, test_title, test_description, test_type_id, test_by_invitation, test_invitation_key, test_date_of_creation)
     {
-        this.test_id = test_id
         this.test_creator_id = test_creator_id
         this.test_title = test_title
         this.test_description = test_description
