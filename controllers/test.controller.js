@@ -4,10 +4,10 @@ const QuestionService = require('../services/question.service')
 const Test = require("../models/Test");
 class TestController{
     async createTest(req, res){
-        const {login, email, password} = req.body
-        const user = new User(login, email, password)
-        const newPerson = await TestService.createUser(user)
-        res.json(newPerson)
+        const {test_id, test_creator_id, test_title, test_description, test_type_id, test_by_invitation, test_invitation_key, test_date_of_creation} = req.body
+        const test = new Test(test_id, test_creator_id, test_title, test_description, test_type_id, test_by_invitation, test_invitation_key, test_date_of_creation)
+        const newTest = await TestService.createTest(test)
+        res.json(newTest)
     }
 
     async getTests(req, res){
@@ -29,20 +29,10 @@ class TestController{
 
     async getTestById(req, res){
         const id = req.params.test_id
-        const test = await TestService.getTestById(id)
+        let test = await TestService.getTestById(id)
+
         res.json(test)
     }
-
-        async getTestWithQuestionsByTestIdAndQuestionCount(req, res){
-            const id = req.params.test_id
-            const questionCount = req.params.test_question_count
-            const test = await TestService.getTestById(id)
-            let questions = []
-            for (let i = 0; i <= questionCount; i++) {
-                questions.push(await QuestionService.getQuestionByTestId(id))
-              }
-            res.json(test, questions)
-        }
 
     async updateTest(req, res){
         const {test_id, test_creator_id, test_title, test_description, test_type_id, test_by_invitation, test_invitation_key, test_date_of_creation} = req.body

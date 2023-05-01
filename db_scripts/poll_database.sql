@@ -23,7 +23,7 @@ CREATE TABLE Tests
 	test_type_id int REFERENCES TestTypes(type_id),
 	test_by_invitation bool,
 	test_invitation_key varchar(50),
-	test_date_of_creation varchar(50) 
+	test_date_of_creation varchar(50)
 );
 
 CREATE TABLE Results
@@ -42,7 +42,8 @@ CREATE TABLE Questions
 	question_id SERIAL PRIMARY KEY,
 	question_number int,
 	question_text varchar(50),
-	question_right_answer_number int 
+	question_right_answer_number int,
+	test_id int REFERENCES Tests(test_id) -- ДОБАВЛЕНО
 );
 
 CREATE TABLE Ballings
@@ -78,11 +79,7 @@ CREATE TABLE UsersTests
 	test_id int REFERENCES Tests(test_id) NOT NULL
 );
 
-CREATE TABLE QuestionsTests
-(
-	test_id int REFERENCES Tests(test_id) NOT NULL,
-	question_id int REFERENCES Questions(question_id) NOT NULL
-);
+-- удалено TestsQuestions
 
 CREATE TABLE AnswersQuestions
 (
