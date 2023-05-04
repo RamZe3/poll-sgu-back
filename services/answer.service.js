@@ -2,8 +2,8 @@ const db = require('../db')
 
 class AnswerService{
     async createAnswer(answer){
-        const newAnswer = await db.query('INSERT INTO Answers (answer_number, answer_text, answer_value) values ($1, $2, $3) RETURNING *',
-            [answer.answer_number, answer.answer_text, answer.answer_value])
+        const newAnswer = await db.query('INSERT INTO AnswerOptions (question_id, answer_number, answer_title, answer_value) values ($1, $2, $3, $4) RETURNING *',
+            [answer.question_id, answer.answer_number, answer.answer_title, answer.answer_value])
         return newAnswer.rows[0]
     }
 

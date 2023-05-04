@@ -1,6 +1,7 @@
 const db = require('../db')
 const TestService = require('../services/test.service')
 const QuestionService = require('../services/question.service')
+const AnswerService = require('../services/answer.service')
 const Test = require("../models/Test");
 class TestController{
     async createTest(req, res){
@@ -12,8 +13,17 @@ class TestController{
 
         for (let i = 0; i < test_questions.length; i++){
             test_questions[i].test_id = newTest.test_id
-            newTestQuestions.push(QuestionService.createQuestion(test_questions[i]))
+            QuestionService.createQuestion(test_questions[i])
+            for (let k = 0; k < test_questions[i].answers.length; k++){
+                test_questions[i].answers[k].question_id = (await db.query('SELECT MAX(question_id) FROM Questions')).rows[0].max
+                AnswerService.createAnswer(test_questions[i].answers[k])
+            }
+            newTestQuestions.push(test_questions[i])
+            
         }
+
+        // AnswerService.createAnswer(test_questions[i].answers)
+
         newTest.test_questions = newTestQuestions
 
         res.json(newTest)
