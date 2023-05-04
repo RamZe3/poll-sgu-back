@@ -9,17 +9,15 @@ class ResultService{
 
     async getResults(){
         const results = await db.query('SELECT * FROM Results')
+        for (let result of results.rows) {
+            const questions = await db.query('SELECT * FROM Questions WHERE test_id=$1', [result.test_id])
+            result.test_questions = questions.rows
+            for (let question of questions.rows) {
+                const answers = await db.query('SELECT * FROM UserAnswers WHERE result_id=$1', [question.result_id])
+                result.test_questions.answers = answers.rows
+            }
+        }
         return results.rows
-    }
-
-    async getResultsByUserId(id){
-        if (id === "null" || id === ""){
-            return ''
-        }
-        else{
-            const results = await db.query('SELECT user_id, date_of_passage FROM Results WHERE user_id= $1', [id])
-            return results.rows
-        }
     }
 
     async getResultsByCreatorId(id){
@@ -28,6 +26,14 @@ class ResultService{
         }
         else{
             const results = await db.query('SELECT user_id, date_of_passage FROM Results WHERE test_creator_id= $1', [id])
+            for (let result of results.rows) {
+                const questions = await db.query('SELECT * FROM Questions WHERE test_id=$1', [result.test_id])
+                result.test_questions = questions.rows
+                for (let question of questions.rows) {
+                    const answers = await db.query('SELECT * FROM UserAnswers WHERE result_id=$1', [question.result_id])
+                    result.test_questions.answers = answers.rows
+                }
+            }
             return results.rows
         }
     }
@@ -37,7 +43,13 @@ class ResultService{
             return ''
         }
         else{
-            const result = await db.query('SELECT result_comment FROM Results WHERE user_id = $1 AND test_id = $2', [user_id, test_id])
+            let result = await db.query('SELECT result_comment FROM Results WHERE user_id = $1 AND test_id = $2', [user_id, test_id])
+            const questions = await db.query('SELECT * FROM Questions WHERE test_id=$1', [result.test_id])
+            result.test_questions = questions.rows
+            for (let question of questions.rows) {
+                const answers = await db.query('SELECT * FROM UserAnswers WHERE result_id=$1', [question.result_id])
+                result.test_questions.answers = answers.rows
+            }
             return result.rows[0]
         }
     }
