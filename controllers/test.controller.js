@@ -5,24 +5,25 @@ const AnswerService = require('../services/answer.service')
 const Test = require("../models/Test");
 class TestController{
     async createTest(req, res){
-        const {test_creator_id, test_title, test_description, test_type_id, test_by_invitation, test_invitation_key, test_date_of_creation, test_questions} = req.body
-        const test = new Test(test_creator_id, test_title, test_description, test_type_id, test_by_invitation, test_invitation_key, test_date_of_creation)
+        const {test_creator_id, test_title, test_description, test_type, test_by_invitation, test_invitation_key, test_date_of_creation, test_questions} = req.body
+        const test = new Test(test_creator_id, test_title, test_description, test_type, test_by_invitation, test_invitation_key, test_date_of_creation)
         const newTest = await TestService.createTest(test)
 
         let newTestQuestions = []
 
         for (let i = 0; i < test_questions.length; i++){
             test_questions[i].test_id = newTest.test_id
-            QuestionService.createQuestion(test_questions[i])
+            const newQuestion = await QuestionService.createQuestion(test_questions[i])
+            
             for (let k = 0; k < test_questions[i].answers.length; k++){
-                test_questions[i].answers[k].question_id = (await db.query('SELECT MAX(question_id) FROM Questions')).rows[0].max
+                test_questions[i].answers[k].question_id = newQuestion.question_id
                 AnswerService.createAnswer(test_questions[i].answers[k])
             }
             newTestQuestions.push(test_questions[i])
             
         }
 
-        // AnswerService.createAnswer(test_questions[i].answers)
+        // если test_type психа, то создавать баллинг в квешчене
 
         newTest.test_questions = newTestQuestions
 
